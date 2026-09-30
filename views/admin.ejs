@@ -28,7 +28,7 @@
                 
                 <div class="mb-4">
                     <label class="form-label fw-bold">Content</label>
-                    <textarea name="content" class="form-control" rows="10" required></textarea>
+                    <textarea name="content" class="form-control" rows="10"><%= typeof article !== 'undefined' ? article.content : '' %></textarea>
                 </div>
 
                 <div class="d-grid">
