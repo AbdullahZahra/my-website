@@ -1,24 +1,26 @@
-const express = require('express');
-const path = require('path');
-const routes = require('./routes'); // Automatically loads index.js from routes folder
+require("dotenv").config(); // Load environment variables first
+const express = require("express");
+const path = require("path");
+const mongoose = require("mongoose");
+const routes = require("./routes");
 
 const app = express();
+// Use the PORT from .env if available, otherwise fallback to 3000
 const PORT = process.env.PORT || 3000;
 
-// Set EJS as the templating engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+// Connect to MongoDB Atlas using the secure environment variable
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log("Successfully connected to MongoDB Atlas!"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Middleware to parse URL-encoded bodies (for the admin form)
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
-// Use the routes defined in routes/index.js
-app.use('/', routes);
+app.use("/", routes);
 
-// Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
