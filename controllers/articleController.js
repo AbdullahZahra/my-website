@@ -93,4 +93,43 @@ module.exports = {
       res.status(500).send(`Error publishing article: ${err.message}`);
     }
   },
+  getEditForm: async (req, res) => {
+    try {
+      const article = await Article.findById(req.params.id);
+      if (article) {
+        res.render("edit", { article });
+      } else {
+        res.status(404).send("Article not found");
+      }
+    } catch (err) {
+      console.error("Crash in getEditForm:", err);
+      res.status(500).send(`Error loading edit form: ${err.message}`);
+    }
+  },
+
+  updateArticle: async (req, res) => {
+    try {
+      const { title, content, language } = req.body;
+      // Updates the document while keeping the original publish date intact
+      await Article.findByIdAndUpdate(req.params.id, {
+        title,
+        content,
+        language,
+      });
+      res.redirect("/admin");
+    } catch (err) {
+      console.error("Crash in updateArticle:", err);
+      res.status(500).send(`Error updating article: ${err.message}`);
+    }
+  },
+
+  deleteArticle: async (req, res) => {
+    try {
+      await Article.findByIdAndDelete(req.params.id);
+      res.redirect("/admin");
+    } catch (err) {
+      console.error("Crash in deleteArticle:", err);
+      res.status(500).send(`Error deleting article: ${err.message}`);
+    }
+  },
 };
