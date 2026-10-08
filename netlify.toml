@@ -2,8 +2,11 @@
   functions = "functions"
   publish = "public"
 
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "ADMIN_USERNAME"
+
 [functions]
-  external_node_modules = ["express"]
+  external_node_modules = ["express", "mongoose", "connect-mongo"]
   node_bundler = "esbuild"
 
 [[redirects]]
