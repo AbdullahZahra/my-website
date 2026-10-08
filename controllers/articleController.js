@@ -132,4 +132,30 @@ module.exports = {
       res.status(500).send(`Error deleting article: ${err.message}`);
     }
   },
+
+  getLogin: (req, res) => {
+    // If already logged in, redirect straight to admin
+    if (req.session.isAuthenticated) return res.redirect("/admin");
+    res.render("login", { error: null });
+  },
+
+  postLogin: (req, res) => {
+    const { username, password } = req.body;
+
+    if (
+      username === process.env.ADMIN_USERNAME &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      req.session.isAuthenticated = true; // Set the session token
+      res.redirect("/admin");
+    } else {
+      res.render("login", { error: "Invalid username or password" });
+    }
+  },
+
+  logout: (req, res) => {
+    req.session.destroy(() => {
+      res.redirect("/login");
+    });
+  },
 };

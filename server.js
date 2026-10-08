@@ -2,7 +2,7 @@ require("dotenv").config(); // Load environment variables first
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-const routes = require("./routes");
+const session = require("express-session");
 
 const app = express();
 // Use the PORT from .env if available, otherwise fallback to 3000
@@ -19,7 +19,17 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", routes);
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }, // Keep false for localhost HTTP
+  }),
+);
+
+const indexRoutes = require("./routes/index");
+app.use("/", indexRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
