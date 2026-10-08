@@ -20,13 +20,15 @@
   },
   "homepage": "https://github.com/AbdullahZahra/my-website#readme",
   "dependencies": {
+    "connect-mongo": "^6.0.0",
     "dotenv": "^18.0.4",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "marked": "^18.0.14",
     "mongoose": "^9.10.3",
-    "sanitize-html": "^2.18.0"
+    "sanitize-html": "^2.18.0",
+    "serverless-http": "^4.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.14.10"

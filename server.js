@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const serverless = require("serverless-http");
 
 const app = express();
 // Use the PORT from .env if available, otherwise fallback to 3000
@@ -24,13 +25,15 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // Keep false for localhost HTTP
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
+    cookie: { secure: false },
   }),
 );
 
 const indexRoutes = require("./routes/index");
 app.use("/", indexRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running at http://localhost:${PORT}`);
+// });
+module.exports.handler = serverless(app);
