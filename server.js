@@ -4,6 +4,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const serverless = require("serverless-http");
+const MongoStore = require("connect-mongo");
 
 const app = express();
 // Use the PORT from .env if available, otherwise fallback to 3000
