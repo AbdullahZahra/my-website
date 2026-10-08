@@ -38,24 +38,23 @@
   <div class="container my-5">
     <div class="row">
       <!-- Article Container (Adapts based on language) -->
-      <div class="col-lg-8 mx-auto" <%- article.language === 'ar' ? 'dir="rtl" style="font-family: \'Cairo\', sans-serif;"' : '' %>>
+      <div class="container py-5" style="max-width: 800px;" <%- article.language === 'ar' ? 'dir="rtl" style="font-family: \'Cairo\', sans-serif;"' : '' %>>
 
-        <article class="bg-white p-4 p-md-5 rounded shadow-sm">
-          <header class="mb-4 <%- article.language === 'ar' ? 'text-end' : '' %>">
+        <a href="/" class="text-decoration-none text-muted mb-4 d-inline-block">&larr; Back to Home</a>
+
+        <header class="mb-5">
+          <div class="mb-3">
             <% article.tags.forEach(tag => { %>
-            <span class="badge bg-primary mb-2"><%= tag %></span>
+            <span class="badge bg-dark me-1"><%= tag %></span>
             <% }) %>
-            <h1 class="fw-bolder mb-3 mt-2"><%= article.title %></h1>
-            <div class="text-muted fst-italic mb-2">
-              <%= article.language === 'ar' ? 'نُشر في ' : 'Published on ' %><%= article.date %>
-            </div>
-          </header>
+          </div>
+          <h1 class="fw-bold mb-3"><%= article.title %></h1>
+          <p class="text-muted border-bottom pb-3"><%= article.date %></p>
+        </header>
 
-          <section class="markdown-body" style="font-size: 1.1rem; line-height: 1.8;">
-            <%- htmlContent %>
-          </section>
-        </article>
-
+        <section class="markdown-body" style="font-size: 1.1rem; line-height: 1.8;">
+          <%- htmlContent %>
+        </section>
       </div>
     </div>
   </div>
