@@ -6,8 +6,8 @@
   SECRETS_SCAN_OMIT_KEYS = "ADMIN_USERNAME"
 
 [functions]
-  # We switch to the standard ZIP bundler so it stops compressing the database packages
   node_bundler = "zisi"
+  included_files = ["views/**"]
 
 [[redirects]]
   force = true
