@@ -10,7 +10,7 @@
   included_files = ["views/**", "node_modules/marked/**"]
 
 [[redirects]]
-  force = true
+  force = false
   from = "/*"
   status = 200
   to = "/.netlify/functions/server/:splat"
