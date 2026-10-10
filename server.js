@@ -4,6 +4,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const serverless = require("serverless-http");
+
+const connectMongo = require("connect-mongo");
 const MongoStore = connectMongo.default || connectMongo;
 
 const app = express();
