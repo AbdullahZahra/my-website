@@ -6,8 +6,8 @@
   SECRETS_SCAN_OMIT_KEYS = "ADMIN_USERNAME"
 
 [functions]
-  external_node_modules = ["express", "mongoose", "connect-mongo"]
-  node_bundler = "esbuild"
+  # We switch to the standard ZIP bundler so it stops compressing the database packages
+  node_bundler = "zisi"
 
 [[redirects]]
   force = true
