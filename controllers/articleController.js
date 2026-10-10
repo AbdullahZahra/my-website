@@ -1,5 +1,4 @@
 const Article = require("../models/articleModel");
-const { marked } = require("marked");
 const sanitizeHtml = require("sanitize-html");
 
 module.exports = {
@@ -17,6 +16,9 @@ module.exports = {
     try {
       const article = await Article.findById(req.params.id);
       if (article) {
+        // Dynamically import marked only when this route is hit
+        const { marked } = await import("marked");
+
         const rawHtml = marked.parse(article.content);
         const cleanHtml = sanitizeHtml(rawHtml, {
           // 1. Allow headings, images, code blocks, and iframes
